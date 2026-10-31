@@ -20,16 +20,19 @@ describe('Controller-Service Integration Tests', () => {
     });
 
     test('handleAddTodo should call service.addTodo and update the model', () => {
-        // TODO: Call the controller's handleAddTodo method with some test text.
-        // Then, get the list of todos directly from the service.
-        // Assert that the service's todos array has a length of 1.
-        // Assert that the text of the first todo in the service matches the input.
-    });
+    controller.handleAddTodo('Hoc Jest');
+
+    const todos = service.getTodos();
+    expect(todos).toHaveLength(1);
+    expect(todos[0].text).toBe('Hoc Jest');
+});
 
     test('handleRemoveTodo should call service.removeTodo and update the model', () => {
-        // TODO: First, directly add a todo to the service.
-        // Get the ID of the new todo.
-        // Call the controller's handleRemoveTodo method with that ID.
-        // Assert that the service's todos array is now empty.
-    });
+    service.addTodo('Hoc Jest');
+    const todoId = service.getTodos()[0].id;
+
+    controller.handleRemoveTodo(todoId);
+
+    expect(service.getTodos()).toHaveLength(0);
+});
 });
